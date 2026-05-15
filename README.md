@@ -114,6 +114,7 @@ Open [notebooks/02_baseline_models.ipynb](notebooks/02_baseline_models.ipynb) af
 - compares median, ridge, histogram gradient boosting, and extra-trees baselines
 - reports global weighted R2 plus per-target and segment diagnostics
 - validates whether enforcing `Dry_Total_g = Dry_Green_g + Dry_Dead_g + Dry_Clover_g` improves local score
+- adds deep-dive diagnostics for high-biomass NSW images, feature-family comparisons, and zero-inflated clover/dead matter
 - writes `/kaggle/working/submission.csv`
 
 It also exports:
@@ -122,6 +123,10 @@ It also exports:
 baseline_cv_summary.csv
 baseline_per_target.csv
 baseline_segment_error.csv
+feature_set_cv_summary.csv
+high_biomass_nsw_review.csv
+zero_inflation_summary.csv
+zero_inflation_oof.csv
 submission.csv
 ```
 
