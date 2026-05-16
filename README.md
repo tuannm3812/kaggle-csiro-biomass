@@ -55,6 +55,7 @@ Run the notebooks on Kaggle with competition data mounted at:
    - Uses `GroupKFold` by `image_path`, metric-aligned sample weights, simple image features, and available metadata.
    - Compares median, ridge, histogram gradient boosting, and extra-trees baselines.
    - Adds cached EfficientNet-B0 image embeddings when pretrained `torchvision` weights are available.
+   - Selects the final submission-safe feature family by grouped CV.
    - Tests target-specific models for `Dry_Total_g`, `GDM_g`, and `Dry_Green_g`.
    - Exports baseline summaries and `submission.csv`.
 
@@ -94,27 +95,32 @@ Key baseline findings:
 - `extra_trees` is the current best baseline.
 - Enforcing `Dry_Total_g = Dry_Green_g + Dry_Dead_g + Dry_Clover_g` improves weighted R2 from `0.80806` to `0.81136`.
 - `Dry_Total_g` remains the highest-MAE target, especially in NSW high-biomass examples.
-- Image-only color features are much weaker than the current feature set, so learned image embeddings are the clearest next upgrade.
+- Image-only color features are much weaker than the current feature set.
+- The first EfficientNet-B0 embedding run underperformed the tabular/color baseline, so embeddings remain diagnostic until they improve grouped CV.
 - The two-stage zero-inflation check did not improve weighted R2 for `Dry_Clover_g` or `Dry_Dead_g`; keep it diagnostic for now.
 
 ## 6. Next Steps
 
-1. Run the new embedding and target-specific sections on Kaggle.
-   - Compare embeddings alone, tabular/color features alone, and blended models under the same grouped CV.
-   - Check whether target-specific models reduce NSW high-biomass errors.
+1. Re-run the refined baseline notebook on Kaggle.
+   - Confirm that CV selects the best submission-safe feature family.
+   - Confirm whether the biomass constraint helps the selected feature family before submission.
 
-2. Improve target strategy based on the new CV output.
+2. Improve embeddings before using them in final submission.
+   - Try stronger backbones, lower-dimensional embedding projections, or ridge/boosting models better suited to dense embeddings.
+   - Keep embeddings out of the final model unless grouped CV improves.
+
+3. Improve target strategy based on CV output.
    - Keep target-specific models only where they beat the long-format baseline.
    - Keep the biomass accounting constraint as validated post-processing.
 
-3. Focus error reduction on hard segments.
+4. Focus error reduction on hard segments.
    - Prioritize NSW high-biomass rows and WA clover rows.
    - Review outliers before treating extreme labels as noise.
 
-4. Strengthen validation.
+5. Strengthen validation.
    - Keep `GroupKFold(image_path)` as the default.
    - Add segment-level reporting by target and state for every experiment.
 
-5. Prepare leaderboard iterations.
+6. Prepare leaderboard iterations.
    - Track local weighted R2, per-target MAE, and segment error.
    - Submit only changes that improve grouped CV or clearly improve high-priority target behavior.
