@@ -7,6 +7,8 @@
   <img alt="Status" src="https://img.shields.io/badge/Status-Active%20Research-2E7D32?style=flat" height="20">
 </p>
 
+![Bioenergy pasture banner](https://arena.gov.au/assets/2019/06/bioenergy-banner.jpg)
+
 Kaggle workflow for the [CSIRO Image2Biomass Prediction](https://www.kaggle.com/competitions/csiro-biomass) competition. The current focus is a reliable validation setup, concise EDA, and a strong first tabular baseline.
 
 ## 1. Objective
