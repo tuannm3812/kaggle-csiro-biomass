@@ -167,7 +167,7 @@ Promote a model only when it satisfies all of the following:
 4. Does not materially worsen the monitored hard segments.
 5. Produces downloadable artifacts for review.
 
-For notebook 04, review `tabular_tuning_promotion_review.csv` before replacing the stable baseline.
+Before promoting notebook 04 results, review the generated Kaggle artifact `tabular_tuning_promotion_review.csv`.
 
 ## 8. Project Closeout
 
